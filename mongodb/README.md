@@ -1,0 +1,11 @@
+Notes:
+- Minimal MongoDB container with single-node Replica Set configuration.
+- Should support both arm64 and x86\_64 architectures.
+- Current supported version is `4.4.x`.
+
+Usage:
+- To build the image: `./lets.sh build`
+- To create and start the container: `./lets.sh run`
+- To stop container: `./lets.sh stop`
+- To remove container and volume: `./lets.sh reset`
+- To remove container, volume and image: `./lets.sh rm`
