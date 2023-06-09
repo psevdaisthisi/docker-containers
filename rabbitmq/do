@@ -41,31 +41,27 @@ trap trap_user_exit INT
 
 pushd "$script_absdir" >/dev/null
 
+# Other RMQ images can be found at https://hub.docker.com/_/rabbitmq
+# ATM there's no arm64/v8 version available for the alpine flavor.
 arch="${ARCH:-$(uname -m)}"
 container=""
 platform=""
 tag=""
-version="${VERSION:-4.4.22}"
-volume="psevdaisthisi-mongo"
+version="${VERSION:-3.11.18}"
+volume="psevdaisthisi-rmq"
 
-arg_pkg=""
-env_port=27017
-env_replSet="rs0"
+env_port1=5672
+env_port2=15672
 
-# NOTE: MongoDB releases are available at
-# https://www.mongodb.com/try/download/community
-arg_pkg="https://fastdl.mongodb.org/linux"
 if [ "$arch" == "arm64" ]; then
-	arg_pkg="${arg_pkg}/mongodb-linux-aarch64-ubuntu1804-${version}.tgz"
 	platform="linux/arm64/v8"
-	container="psevdaisthisi-mongo-arm64-$version"
-	tag="psevdaisthisi-mongo-arm64:$version"
+	container="psevdaisthisi-rmq-arm64-$version"
+	tag="rabbitmq:$version-management"
 
 elif [ "$arch" == "x86_64" ]; then
-	arg_pkg="${arg_pkg}/mongodb-linux-x86_64-debian10-${version}.tgz"
 	platform="linux/x86_64"
-	container="psevdaisthisi-mongo-arm64-$version"
-	tag="psevdaisthisi-mongo-x86:$version"
+	container="psevdaisthisi-rmq-arm64-$version"
+	tag="rabbitmq:$version-alpine-management"
 
 else
 	log_error ">>> Unsupported architecture: $arch."
@@ -73,10 +69,6 @@ else
 fi
 
 if [ "$1" == "build" ]; then
-	docker build --build-arg PKG="$arg_pkg" \
-		--platform $platform \
-		--tag $tag .
-
 	docker volume create "$volume"
 
 elif [ "$1" == "reset" ]; then
@@ -93,9 +85,10 @@ elif [ "$1" == "run" ]; then
 	[ -n "$already_ran" ] && docker start "$container"
 
 	[ -z "$already_ran" ] && docker run -d --init \
-		-e port="$env_port" -e replSet="$env_replSet" \
-		-p "$env_port:$env_port" \
-		--mount source="$volume",target=/data/db \
+		-p "$env_port1:$env_port1" \
+		-p "$env_port2:$env_port2" \
+		--mount source="$volume",target=/usr/local/rabbitmq/var/lib/rabbitmq/mnesia \
+		--mount type=tmpfs,destination=/usr/local/rabbitmq/var/log/rabbitmq \
 		--name "$container" \
 		"$tag"
 
@@ -109,5 +102,5 @@ elif [ "$1" == "stop" ]; then
 
 else
 	log_warning ">>> Unknown or missing action."
-	log_warning "$ ./lets build|run|stop|reset|rm"
+	log_warning "$ ./do build|run|stop|reset|rm"
 fi
