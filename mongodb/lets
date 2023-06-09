@@ -108,5 +108,5 @@ elif [ "$1" == "stop" ]; then
 		log_info ">>> Stopped $container"
 else
 	log_warning ">>> Unknown or missing action."
-	log_warning "$ lets.sh build|run|stop|reset|rm"
+	log_warning "$ ./lets build|run|stop|reset|rm"
 fi

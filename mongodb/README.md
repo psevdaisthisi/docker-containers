@@ -7,8 +7,8 @@ Notes:
 - Users are automatically configured on the first run.
 
 Usage:
-- To build the image: `./lets.sh build`
-- To create and start the container: `./lets.sh run`
-- To stop container: `./lets.sh stop`
-- To remove container and volume: `./lets.sh reset`
-- To remove container, volume and image: `./lets.sh rm`
+- To build the image: `./lets build`
+- To create and start the container: `./lets run`
+- To stop container: `./lets stop`
+- To remove container and volume: `./lets reset`
+- To remove container, volume and image: `./lets rm`
