@@ -1,12 +1,14 @@
 # Usage
 All containers are managed the same way, except where noticed otherwise:
-- To build the image: `./<folder>/do build`
+- To build the image: `./<service>/do build`
 - To create and start the container: `./do run`
-- To stop container: `./<folder>/do stop`
-- To remove container and volume: `./<folder>/do reset`
-- To remove container, volume and image: `./<folder>/do rm`
-- To use a different version: `VERSION=3.10.24 ./<folder>/do ...`
-- To force a different architecture: `ARCH=x86_64 ./<folder>/do ...`
+- To stop container: `./<service>/do stop`
+- To remove container and volume: `./<service>/do reset`
+- To remove container, volume and image: `./<service>/do rm`
+- To use a different service version: `VERSION=3.10.24 ./<service>/do ...`
+- To force a different architecture: `ARCH=x86_64 ./<service>/do ...`
+- To use a different prefix for Docker artifacts: `PREFIX=myown ./<service>/do ...`
+  - The default prefix is `gh`.
 
 # Containers
 

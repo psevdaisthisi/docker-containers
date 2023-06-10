@@ -16,8 +16,9 @@ pushd "$script_absdir" >/dev/null
 arch="${ARCH:-$(uname -m)}"
 container=""
 platform=""
+prefix="${PREFIX:-gh}"
 tag=""
-volume="psevdaisthisi-mssql"
+volume="${prefix}-mssql"
 
 env_port=1433
 
@@ -27,12 +28,12 @@ env_port=1433
 if [ "$arch" == "arm64" ]; then
 	platform="linux/arm64/v8"
 	version="${VERSION:-1.0.7}"
-	container="psevdaisthisi-mssql-arm64-$version"
+	container="${prefix}-mssql-arm64-$version"
 	tag="mcr.microsoft.com/azure-sql-edge:${version}"
 
 elif [ "$arch" == "x86_64" ]; then
 	platform="linux/x86_64"
-	container="psevdaisthisi-rmq-arm64-$version"
+	container="${prefix}-rmq-arm64-$version"
 	version="${VERSION:-2019-CU20-ubuntu-20.04}"
 	tag="mcr.microsoft.com/mssql/server:$version"
 
