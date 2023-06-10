@@ -64,6 +64,7 @@ elif [ "$1" == "run" ]; then
 		-e MSSQL_PID=Developer \
 		-e MSSQL_SA_PASSWORD="mssql!42" \
 		-e MSSQL_TELEMETRY_ENABLED=FALSE \
+		--platform $platform \
 		--mount source="$volume",target=/var/opt/mssql \
 		--name "$container" \
 		"$tag"

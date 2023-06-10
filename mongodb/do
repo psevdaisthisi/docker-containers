@@ -68,6 +68,7 @@ elif [ "$1" == "run" ]; then
 	[ -z "$already_ran" ] && docker run -d --init \
 		-e port="$env_port" -e replSet="$env_replSet" \
 		-p "$env_port:$env_port" \
+		--platform $platform \
 		--mount source="$volume",target=/data/db \
 		--name "$container" \
 		"$tag"

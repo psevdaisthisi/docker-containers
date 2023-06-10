@@ -58,6 +58,7 @@ elif [ "$1" == "run" ]; then
 	[ -z "$already_ran" ] && docker run -d --init \
 		-p "$env_port:$env_port" \
 		-e POSTGRES_PASSWORD="pgsql!42" \
+		--platform $platform \
 		--mount source="$volume",target=/var/lib/postgresql/data \
 		--name "$container" \
 		"$tag"
