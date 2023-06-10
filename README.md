@@ -26,7 +26,6 @@ to automatically try them later.
 - Current x86\_64 version: `mcr.microsoft.com/mssql/server:2019-CU20-ubuntu-20.04`.
 - Credentials: `sa`, `mssql-1234`.
 
-
 ## MongoDB
 - Available at `./mongodb`.
 - Minimal MongoDB container with single-node Replica Set configuration.
@@ -37,6 +36,12 @@ to automatically try them later.
 - Users are automatically configured on the first run.
 - The version can't be easily changed on demand because the deployment
   structure has changed.
+
+## PostgreSQL
+- Available at `./pgsql`.
+- Supports both arm64 and x86\_64 architectures.
+- Current supported version is `15.3-alpine3.18`.
+- Credentials: `postgres`, `pgsql!42`.
 
 ## RabbitMQ
 - Available at `./rabbitmq`.

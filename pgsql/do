@@ -1,0 +1,76 @@
+#!/bin/bash
+
+script_name="$(basename ${BASH_SOURCE[0]})"
+script_reldir="$(dirname ${BASH_SOURCE[0]})"
+script_absdir="$(cd $script_reldir > /dev/null && pwd)"
+. "$script_absdir"/../misc.sh
+
+set -e
+trap trap_error ERR
+trap trap_exit EXIT
+trap trap_user_exit INT
+
+
+pushd "$script_absdir" >/dev/null
+
+arch="${ARCH:-$(uname -m)}"
+container=""
+platform=""
+prefix="${PREFIX:-gh}"
+tag=""
+version="${VERSION:-15.3-alpine3.18}"
+volume="${prefix}-pgsql"
+
+env_port=5432
+
+# Other PostgreSQL images can be found at https://hub.docker.com/_/postgres
+if [ "$arch" == "arm64" ]; then
+	platform="linux/arm64/v8"
+	container="${prefix}-pgsql-arm64-$version"
+	tag="postgres:$version"
+
+elif [ "$arch" == "x86_64" ]; then
+	platform="linux/x86_64"
+	container="${prefix}-rmq-arm64-$version"
+	tag="postgres:$version"
+
+else
+	log_error ">>> Unsupported architecture: $arch."
+	exit 1
+fi
+
+if [ "$1" == "build" ]; then
+	docker volume create "$volume"
+
+elif [ "$1" == "reset" ]; then
+	docker rm "$container" || true
+	docker volume rm "$volume" || true
+
+elif [ "$1" == "rm" ]; then
+	docker rm "$container" || true
+	docker volume rm "$volume" || true
+	docker rmi "$tag" || true
+
+elif [ "$1" == "run" ]; then
+	already_ran=$(docker ps -aq --filter name="$container")
+	[ -n "$already_ran" ] && docker start "$container"
+
+	[ -z "$already_ran" ] && docker run -d --init \
+		-p "$env_port:$env_port" \
+		-e POSTGRES_PASSWORD="pgsql!42" \
+		--mount source="$volume",target=/var/lib/postgresql/data \
+		--name "$container" \
+		"$tag"
+
+	docker logs --follow --tail 15 "$container" &
+	wait
+
+elif [ "$1" == "stop" ]; then
+	[ -n "$(docker ps -q --filter name="$container")" ] &&
+		docker stop "$container" &&
+		log_info ">>> Stopped $container"
+
+else
+	log_warning ">>> Unknown or missing action."
+	log_warning "$ ./do build|run|stop|reset|rm"
+fi
