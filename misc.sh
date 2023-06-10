@@ -27,3 +27,27 @@ trap_user_exit () {
 		log_info ">>> Stopped $container" &&
 		exit 0
 }
+
+container_reset () {
+	local container="$1"
+	local volume="$2"
+	docker rm "$container" || true
+	docker volume rm "$volume" || true
+}
+
+container_rm () {
+	local container="$1"
+	local volume="$2"
+	local image="$3"
+	docker rm "$container" || true
+	docker volume rm "$volume" || true
+	docker rmi "$image" || true
+}
+
+container_stop () {
+	local container="$1"
+	if [ -n "$(docker ps -q --filter name="$container")" ]; then
+		docker stop "$container" &&
+		log_info ">>> Stopped $container"
+	fi
+}

@@ -46,13 +46,10 @@ if [ "$1" == "build" ]; then
 	docker volume create "$volume"
 
 elif [ "$1" == "reset" ]; then
-	docker rm "$container" || true
-	docker volume rm "$volume" || true
+	container_reset "$container" "$volume"
 
 elif [ "$1" == "rm" ]; then
-	docker rm "$container" || true
-	docker volume rm "$volume" || true
-	docker rmi "$tag" || true
+	container_rm "$container" "$volume" "$tag"
 
 elif [ "$1" == "run" ]; then
 	already_ran=$(docker ps -aq --filter name="$container")
@@ -73,9 +70,7 @@ elif [ "$1" == "run" ]; then
 	wait
 
 elif [ "$1" == "stop" ]; then
-	[ -n "$(docker ps -q --filter name="$container")" ] &&
-		docker stop "$container" &&
-		log_info ">>> Stopped $container"
+	container_stop "$container"
 
 else
 	log_warning ">>> Unknown or missing action."
