@@ -1,7 +1,7 @@
 # Usage
 All containers are managed the same way, except where noticed otherwise:
 - To build the image: `./<service>/do build`
-- To create and start the container: `./do run`
+- To create and start the container: `./<service>/do run`
 - To stop container: `./<service>/do stop`
 - To remove container and volume: `./<service>/do reset`
 - To remove container, volume and image: `./<service>/do rm`
