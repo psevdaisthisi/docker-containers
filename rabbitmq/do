@@ -34,7 +34,7 @@ if [ "$arch" == "arm64" ]; then
 elif [ "$arch" == "x86_64" ]; then
 	platform="linux/x86_64"
 	container="${prefix}-rmq-arm64-$version"
-	tag="rabbitmq:$version-alpine-management"
+	tag="rabbitmq:$version-management-alpine"
 
 else
 	log_error ">>> Unsupported architecture: $arch."
@@ -60,6 +60,7 @@ elif [ "$1" == "run" ]; then
 	[ -z "$already_ran" ] && docker run -d --init \
 		-p "$env_port1:$env_port1" \
 		-p "$env_port2:$env_port2" \
+		--platform $platform \
 		--mount source="$volume",target=/usr/local/rabbitmq/var/lib/rabbitmq/mnesia \
 		--mount type=tmpfs,destination=/usr/local/rabbitmq/var/log/rabbitmq \
 		--name "$container" \
