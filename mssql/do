@@ -62,7 +62,7 @@ elif [ "$1" == "run" ]; then
 		-p "$env_port:$env_port" \
 		-e ACCEPT_EULA=Y \
 		-e MSSQL_PID=Developer \
-		-e MSSQL_SA_PASSWORD="mssql-1234" \
+		-e MSSQL_SA_PASSWORD="mssql!42" \
 		-e MSSQL_TELEMETRY_ENABLED=FALSE \
 		--mount source="$volume",target=/var/opt/mssql \
 		--name "$container" \

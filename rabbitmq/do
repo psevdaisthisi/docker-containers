@@ -13,8 +13,6 @@ trap trap_user_exit INT
 
 pushd "$script_absdir" >/dev/null
 
-# Other RMQ images can be found at https://hub.docker.com/_/rabbitmq
-# ATM there's no arm64/v8 version available for the alpine flavor.
 arch="${ARCH:-$(uname -m)}"
 container=""
 platform=""
@@ -26,6 +24,8 @@ volume="${prefix}-rmq"
 env_port1=5672
 env_port2=15672
 
+# Other RMQ images can be found at https://hub.docker.com/_/rabbitmq
+# ATM there's no arm64/v8 version available for the alpine flavor.
 if [ "$arch" == "arm64" ]; then
 	platform="linux/arm64/v8"
 	container="${prefix}-rmq-arm64-$version"
