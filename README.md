@@ -17,9 +17,9 @@ All containers are managed the same way, except where noticed otherwise:
 
 ## Attention
 If you're using any of these containers in any other scenario than
-your own host, grep the credentials inside the respective folders change
-them. This repository is public so bad actors can easily pick these up
-to automatically try them later.
+your own host, grep the credentials inside the respective folders and
+change them. This repository is public so bad actors can easily pick them
+up at any time.
 
 
 # Containers
