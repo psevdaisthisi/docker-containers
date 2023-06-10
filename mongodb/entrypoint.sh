@@ -7,7 +7,7 @@
 	--networkMessageCompressors zstd \
 	--setParameter "transactionLifetimeLimitSeconds=13" &
 
-[ ! -f "/data/db/firstrun" ] && sleep 1 &&
+[ ! -f "/data/db/firstrun" ] && sleep 2 &&
 	/usr/local/bin/mongo admin \
 		--host localhost --port $port \
 		--eval "$(envsubst </data/db/config.js)" &&
