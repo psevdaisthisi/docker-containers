@@ -42,7 +42,8 @@ up at any time.
 - Current supported version is `4.4.x`.
 - Admin credentials: `dba`, `dba`.
 - User credentials: `dbu`, `dbu`.
-- Users are automatically configured on the first run.
+- Replica Set name: `rs0`.
+- Users and the Replica Set are automatically configured on the first run.
 - The version can't be easily changed on demand because the deployment
   structure has changed.
 
