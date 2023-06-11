@@ -1,6 +1,6 @@
 # Environment and Usage
 These containers and scripts were tested under macOS Big Sur (Intel)
-and macOS Ventura (Apple Silicon) using GNU bash v3.2.47 and Docker
+and macOS Ventura (Apple Silicon) using GNU bash >= `v3.2.47` and Docker
 Desktop 4.20.1. There's a very good change that they also run on
 Linux and Windows/WSL but I haven't tested those yet.
 
@@ -13,7 +13,11 @@ All containers are managed the same way, except where noticed otherwise:
 - To use a different service version: `VERSION=3.10.24 ./<service>/do ...`
 - To force a different architecture: `ARCH=x86_64 ./<service>/do ...`
 - To use a different prefix for Docker artifacts: `PREFIX=myown ./<service>/do ...`
-  * The default prefix is `gh`.
+  - The default prefix is `gh`.
+
+## Why using bash scripts instead of Docker Compose?
+- Easily _scriptable_ across major platforms (Linux, macOS, Windows/WSL).
+- Natively targeting different CPU architectures under the same recipe.
 
 ## Attention
 If you're using any of these containers in any other scenario than
