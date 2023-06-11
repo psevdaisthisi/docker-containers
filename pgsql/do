@@ -10,9 +10,11 @@ trap trap_error ERR
 trap trap_exit EXIT
 trap trap_user_exit INT
 
-
 pushd "$script_absdir" >/dev/null
 
+# PostgreSQL images can be found at
+# https://hub.docker.com/_/postgres
+action="$1"
 arch="${ARCH:-$(uname -m)}"
 container=""
 platform=""
@@ -20,53 +22,49 @@ prefix="${PREFIX:-gh}"
 tag=""
 version="${VERSION:-15.3-alpine3.18}"
 volume="${prefix}-pgsql"
-
 env_port=5432
 
-# Other PostgreSQL images can be found at https://hub.docker.com/_/postgres
-if [ "$arch" == "arm64" ]; then
+case "$arch" in
+arm64)
 	platform="linux/arm64/v8"
 	container="${prefix}-pgsql-arm64-$version"
 	tag="postgres:$version"
-
-elif [ "$arch" == "x86_64" ]; then
+	;;
+x86_64)
 	platform="linux/x86_64"
 	container="${prefix}-rmq-arm64-$version"
 	tag="postgres:$version"
-
-else
+	;;
+*)
 	log_error ">>> Unsupported architecture: $arch."
 	exit 1
-fi
+	;;
+esac
 
-if [ "$1" == "build" ]; then
-	docker volume create "$volume"
+case "$action" in
+reset) container_reset "$container" "$volume" ;;
+rm) container_rm "$container" "$volume" "$tag" ;;
+stop) container_stop "$container" ;;
+build) docker volume create "$volume" ;;
+start)
+	container_id="$(docker ps -aq --filter name="$container")"
+	if [ -n "$container_id" ]; then
+		docker start "$container"
 
-elif [ "$1" == "reset" ]; then
-	container_reset "$container" "$volume"
-
-elif [ "$1" == "rm" ]; then
-	container_rm "$container" "$volume" "$tag"
-
-elif [ "$1" == "run" ]; then
-	already_ran=$(docker ps -aq --filter name="$container")
-	[ -n "$already_ran" ] && docker start "$container"
-
-	[ -z "$already_ran" ] && docker run -d --init \
+	else docker run -d --init \
 		-p "$env_port:$env_port" \
 		-e POSTGRES_PASSWORD="pgsql!42" \
 		--platform $platform \
 		--mount source="$volume",target=/var/lib/postgresql/data \
 		--name "$container" \
 		"$tag"
+	fi
 
 	docker logs --follow --tail 15 "$container" &
 	wait
-
-elif [ "$1" == "stop" ]; then
-	container_stop "$container"
-
-else
+	;;
+*)
 	log_warning ">>> Unknown or missing action."
 	log_warning "$ ./do build|run|stop|reset|rm"
-fi
+	;;
+esac

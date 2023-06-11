@@ -10,9 +10,11 @@ trap trap_error ERR
 trap trap_exit EXIT
 trap trap_user_exit INT
 
-
 pushd "$script_absdir" >/dev/null
 
+# MongoDB releases are available at
+# https://www.mongodb.com/try/download/community
+action="$1"
 arch="${ARCH:-$(uname -m)}"
 container=""
 platform=""
@@ -20,63 +22,66 @@ prefix="${PREFIX:-gh}"
 tag=""
 version="${VERSION:-4.4.22}"
 volume="${prefix}-mongo"
-
-arg_pkg=""
+arg_pkg="https://fastdl.mongodb.org/linux"
 env_port=27017
 env_replSet="rs0"
 
-# NOTE: MongoDB releases are available at
-# https://www.mongodb.com/try/download/community
-arg_pkg="https://fastdl.mongodb.org/linux"
-if [ "$arch" == "arm64" ]; then
+case "$arch" in
+arm64)
 	arg_pkg="${arg_pkg}/mongodb-linux-aarch64-ubuntu1804-${version}.tgz"
 	platform="linux/arm64/v8"
 	container="${prefix}-mongo-arm64-$version"
 	tag="$prefix-mongo-arm64:$version"
-
-elif [ "$arch" == "x86_64" ]; then
+	;;
+x86)
 	arg_pkg="${arg_pkg}/mongodb-linux-x86_64-debian10-${version}.tgz"
 	platform="linux/x86_64"
 	container="${prefix}-mongo-arm64-$version"
 	tag="${prefix}-mongo-x86:$version"
-
-else
+	;;
+*)
 	log_error ">>> Unsupported architecture: $arch."
 	exit 1
-fi
+	;;
+esac
 
-if [ "$1" == "build" ]; then
-	docker build --build-arg PKG="$arg_pkg" \
+case "$1" in
+reset)
+	container_reset "$container" "$volume"
+	;;
+rm)
+	container_rm "$container" "$volume" "$tag"
+	;;
+stop)
+	container_stop "$container"
+	;;
+build)
+	docker build \
+		--build-arg PKG="$arg_pkg" \
 		--platform $platform \
 		--tag $tag .
-
 	docker volume create "$volume"
+	;;
+start)
+	container_id="$(docker ps -aq --filter name="$container")"
+	if [ -n "$container_id" ]; then
+		docker start "$container"
 
-elif [ "$1" == "reset" ]; then
-	container_reset "$container" "$volume"
-
-elif [ "$1" == "rm" ]; then
-	container_rm "$container" "$volume" "$tag"
-
-elif [ "$1" == "run" ]; then
-	already_ran=$(docker ps -aq --filter name="$container")
-	[ -n "$already_ran" ] && docker start "$container"
-
-	[ -z "$already_ran" ] && docker run -d --init \
-		-e port="$env_port" -e replSet="$env_replSet" \
+	else docker run -d --init \
+		-e port="$env_port" \
+		-e replSet="$env_replSet" \
 		-p "$env_port:$env_port" \
 		--platform $platform \
 		--mount source="$volume",target=/data/db \
 		--name "$container" \
 		"$tag"
+	fi
 
 	docker logs --follow --tail 15 "$container" &
 	wait
-
-elif [ "$1" == "stop" ]; then
-	container_stop "$container"
-
-else
+	;;
+*)
 	log_warning ">>> Unknown or missing action."
 	log_warning "$ ./do build|run|stop|reset|rm"
-fi
+	;;
+esac

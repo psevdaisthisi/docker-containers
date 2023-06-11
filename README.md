@@ -5,8 +5,8 @@ Desktop 4.20.1. There's a very good change that they also run on
 Linux and Windows/WSL but I haven't tested those yet.
 
 All containers are managed the same way, except where noticed otherwise:
-- To build the image: `./<service>/do build`
-- To create and start the container: `./<service>/do run`
+- To build the image and volume: `./<service>/do build`
+- To create and start the container: `./<service>/do start`
 - To stop container: `./<service>/do stop`
 - To remove container and volume: `./<service>/do reset`
 - To remove container, volume and image: `./<service>/do rm`
@@ -49,7 +49,7 @@ up at any time.
 - Credentials: `postgres`, `pgsql!42`.
 
 ## RabbitMQ
-- Available at `./rabbitmq`.
+- Available at `./rmq`.
 - RabbitMQ container with management interface enabled.
 - Supports both arm64 and x86\_64 architectures.
 - Current supported version is `3.11.x`.
