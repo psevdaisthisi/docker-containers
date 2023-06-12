@@ -15,7 +15,7 @@ All containers are managed the same way, except where noticed otherwise:
 - To use a different prefix for Docker artifacts: `PREFIX=myown ./<service>/do ...`
   - The default prefix is `gh`.
 
-## Why using bash scripts instead of Docker Compose?
+## Why use bash scripts instead of Docker Compose?
 - Easily _scriptable_ across major platforms (Linux, macOS, Windows/WSL).
 - Natively targeting different CPU architectures under the same recipe.
 
