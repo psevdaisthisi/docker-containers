@@ -33,7 +33,7 @@ arm64)
 	;;
 x86_64)
 	platform="linux/x86_64"
-	container="${prefix}-rmq-arm64-$version"
+	container="${prefix}-rmq-x86_64-$version"
 	version="${VERSION:-2019-CU20-ubuntu-20.04}"
 	tag="mcr.microsoft.com/mssql/server:$version"
 	;;

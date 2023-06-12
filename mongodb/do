@@ -33,10 +33,10 @@ arm64)
 	container="${prefix}-mongo-arm64-$version"
 	tag="$prefix-mongo-arm64:$version"
 	;;
-x86)
+x86_64)
 	arg_pkg="${arg_pkg}/mongodb-linux-x86_64-debian10-${version}.tgz"
 	platform="linux/x86_64"
-	container="${prefix}-mongo-arm64-$version"
+	container="${prefix}-mongo-x86_64-$version"
 	tag="${prefix}-mongo-x86:$version"
 	;;
 *)
