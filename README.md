@@ -33,7 +33,7 @@ up at any time.
 - Microsoft SQL Server setup for both arm64 and x86\_64 architectures.
 - Current arm64 version: `mcr.microsoft.com/azure-sql-edge:1.0.7`.
 - Current x86\_64 version: `mcr.microsoft.com/mssql/server:2019-CU20-ubuntu-20.04`.
-- Credentials: `sa`, `mssql-1234`.
+- Credentials: `sa`, `mssql!42`.
 
 ## MongoDB
 - Available at `./mongodb`.
