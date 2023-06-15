@@ -66,5 +66,5 @@ start)
 	;;
 *)
 	log_warning ">>> Unknown or missing action."
-	log_warning "$ ./do build|run|stop|reset|rm"
+	log_warning "$ ./do build|start|stop|reset|rm"
 esac
