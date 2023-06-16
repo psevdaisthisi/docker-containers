@@ -32,7 +32,7 @@ arm64)
 	;;
 x86_64)
 	platform="linux/x86_64"
-	container="${prefix}-rmq-x86_64-$version"
+	container="${prefix}-pgsql-x86_64-$version"
 	tag="postgres:$version"
 	;;
 *)
