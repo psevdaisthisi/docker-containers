@@ -7,7 +7,8 @@ Linux and Windows/WSL but I haven't tested those yet.
 All containers are managed the same way, except where noticed otherwise:
 - To build the image and volume: `./<service>/do build`
 - To create and start the container: `./<service>/do start`
-- To stop container: `./<service>/do stop` or `<C-c>` in the shell of a started container.
+- To stop container: `./<service>/do stop` or `<C-c>` in the shell of a
+  started container.
 - To remove container and volume: `./<service>/do reset`
 - To remove container, volume and image: `./<service>/do rm`
 - To use a different service version: `VERSION=3.10.24 ./<service>/do ...`
@@ -17,7 +18,8 @@ All containers are managed the same way, except where noticed otherwise:
 
 ## Why use bash scripts instead of Docker Compose?
 - Easily _scriptable_ across major platforms (Linux, macOS, Windows/WSL).
-- Natively targeting different CPU architectures under the same recipe.
+- Natively targeting different CPU architectures and/or images under the
+  same recipe.
 
 ## Attention
 If you're using any of these containers in any other scenario than
