@@ -1,7 +1,7 @@
 # Environment and Usage
 These containers and scripts were tested under macOS Big Sur (Intel)
 and macOS Ventura (Apple Silicon) using GNU bash >= `v3.2.47` and Docker
-Desktop 4.20.1. There's a very good change that they also run on
+Desktop 4.20.1. There's a very good chance that they also run on
 Linux and Windows/WSL but I haven't tested those yet.
 
 All containers are managed the same way, except where noticed otherwise:
