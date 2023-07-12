@@ -16,9 +16,9 @@ pushd "$script_absdir" >/dev/null
 service="$1"
 action="$2"
 
-if [[ ! "$service" =~ ^mongodb$|^mssql$|^pgsql$|^rmq$ ]]; then
+if [[ ! "$service" =~ ^mongo$|^mssql$|^pgsql$|^rmq$ ]]; then
 	log_warning ">>> Unknown service: ${service}."
-	log_warning "$ ./do mongodb|mssql|pgsql|rmq <action>"
+	log_warning "$ ./do mongo|mssql|pgsql|rmq <action>"
 
 elif [[ ! "$action" =~ ^build$|^start$|^stop$|^reset$|^rm$ ]]; then
 	log_warning ">>> Unknown action: ${action}."
@@ -30,6 +30,6 @@ elif [ -x "${service}/do" ]; then
 else
 	log_warning ">>> Unknown request: ${service}."
 	log_warning "$ ./do <service> <action>"
-	log_warning "services: mongodb, mssql, pgsql, rmq"
+	log_warning "services: mongo, mssql, pgsql, rmq"
 	log_warning "actions: build, start, stop, reset, rm"
 fi
