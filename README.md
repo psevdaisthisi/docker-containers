@@ -33,15 +33,15 @@ up at any time.
 ## Microsoft SQL Server
 - Available at `./mssql`.
 - Microsoft SQL Server setup for both arm64 and x86\_64 architectures.
-- Current arm64 version: `mcr.microsoft.com/azure-sql-edge:1.0.7`.
-- Current x86\_64 version: `mcr.microsoft.com/mssql/server:2019-CU20-ubuntu-20.04`.
+- Current arm64 version: `2.x`.
+- Current x86\_64 version: `2019-CUXX-ubuntu-20.04`.
 - Credentials: `sa`, `mssql!42`.
 
 ## MongoDB
 - Available at `./mongo`.
 - Minimal MongoDB container with single-node Replica Set configuration.
 - Supports both arm64 and x86\_64 architectures.
-- Current supported version is `4.4.x`.
+- Current version is `4.4.x`.
 - Admin credentials: `dba`, `dba`.
 - User credentials: `dbu`, `dbu`.
 - Replica Set name: `rs0`.
@@ -52,12 +52,12 @@ up at any time.
 ## PostgreSQL
 - Available at `./pgsql`.
 - Supports both arm64 and x86\_64 architectures.
-- Current supported version is `15.3-alpine3.18`.
+- Current version is `15.3-alpine3.18`.
 - Credentials: `postgres`, `pgsql!42`.
 
 ## RabbitMQ
 - Available at `./rmq`.
 - RabbitMQ container with management interface enabled.
 - Supports both arm64 and x86\_64 architectures.
-- Current supported version is `3.11.x`.
+- Current version is `3.11.x`.
 - Credentials: `guest`, `guest`.
