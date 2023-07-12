@@ -27,14 +27,14 @@ env_port=1433
 case "$arch" in
 arm64)
 	platform="linux/arm64/v8"
-	version="${VERSION:-1.0.7}"
+	version="${VERSION:-2.0.0}"
 	container="${prefix}-mssql-arm64-$version"
 	tag="mcr.microsoft.com/azure-sql-edge:${version}"
 	;;
 x86_64)
 	platform="linux/x86_64"
+	version="${VERSION:-2019-CU21-ubuntu-20.04}"
 	container="${prefix}-mssql-x86_64-$version"
-	version="${VERSION:-2019-CU20-ubuntu-20.04}"
 	tag="mcr.microsoft.com/mssql/server:$version"
 	;;
 *)
