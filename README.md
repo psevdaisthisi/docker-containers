@@ -5,15 +5,15 @@ Desktop 4.20.1. There's a very good chance that they also run on
 Linux and Windows/WSL but I haven't tested those yet.
 
 All containers are managed the same way, except where noticed otherwise:
-- To build the image and volume: `./<service>/do build`
-- To create and start the container: `./<service>/do start`
-- To stop container: `./<service>/do stop` or `<C-c>` in the shell of a
+- To build the image and volume: `./do <service> build`
+- To create and start the container: `./do <service> start`
+- To stop container: `./do <service> stop` or `<C-c>` in the shell of a
   started container.
-- To remove container and volume: `./<service>/do reset`
-- To remove container, volume and image: `./<service>/do rm`
-- To use a different service version: `VERSION=3.10.24 ./<service>/do ...`
-- To force a different architecture: `ARCH=x86_64 ./<service>/do ...`
-- To use a different prefix for Docker artifacts: `PREFIX=myown ./<service>/do ...`
+- To remove container and volume: `./do <service> reset`
+- To remove container, volume and image: `./do <service> rm`
+- To use a different service version: `VERSION=3.10.24 ./do ...`
+- To force a different architecture: `ARCH=x86_64 ./do ...`
+- To use a different prefix for Docker artifacts: `PREFIX=myown ./do ...`
   - The default prefix is `gh`.
 
 ## Why use bash scripts instead of Docker Compose?
