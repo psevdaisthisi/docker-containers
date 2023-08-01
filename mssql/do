@@ -14,7 +14,9 @@ trap trap_user_exit INT
 pushd "$script_absdir" >/dev/null
 
 # SQL Server images can be found at
-# arm64: https://mcr.microsoft.com/v2/azure-sql-edge/tags/list
+# arm64:
+#	1. https://mcr.microsoft.com/v2/azure-sql-edge/tags/list
+#	2. https://learn.microsoft.com/en-us/azure/azure-sql-edge/release-notes
 # x86_64: https://hub.docker.com/_/microsoft-mssql-server
 action="$1"
 arch="${ARCH:-$(uname -m)}"
@@ -27,7 +29,7 @@ env_port=1433
 case "$arch" in
 arm64)
 	platform="linux/arm64/v8"
-	version="${VERSION:-2.0.0}"
+	version="${VERSION:-1.0.7}"
 	container="${prefix}-mssql-arm64-$version"
 	tag="mcr.microsoft.com/azure-sql-edge:${version}"
 	;;

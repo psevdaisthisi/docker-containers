@@ -33,7 +33,7 @@ up at any time.
 ## Microsoft SQL Server
 - Available at `./mssql`.
 - Microsoft SQL Server setup for both arm64 and x86\_64 architectures.
-- Current arm64 version: `Azure SQL Edge 2.x`.
+- Current arm64 version: `Azure SQL Edge 1.*`.
 - Current x86\_64 version: `2019-CUXX-ubuntu-20.04`.
 - Credentials: `sa`, `mssql!42`.
 
@@ -41,7 +41,7 @@ up at any time.
 - Available at `./mongo`.
 - Minimal MongoDB container with single-node Replica Set configuration.
 - Supports both arm64 and x86\_64 architectures.
-- Current version is `4.4.x`.
+- Current version is `4.4.*`.
 - Admin credentials: `dba`, `dba`.
 - User credentials: `dbu`, `dbu`.
 - Replica Set name: `rs0`.
@@ -59,5 +59,5 @@ up at any time.
 - Available at `./rmq`.
 - RabbitMQ container with management interface enabled.
 - Supports both arm64 and x86\_64 architectures.
-- Current version is `3.11.x`.
+- Current version is `3.11.*`.
 - Credentials: `guest`, `guest`.
