@@ -5,12 +5,12 @@ Desktop 4.20.1. There's a very good chance that they also run on
 Linux and Windows/WSL but I haven't tested those yet.
 
 All containers are managed the same way, except where noticed otherwise:
-- To build the image and volume: `./do <service> build`
-- To create and start the container: `./do <service> start`
-- To stop container: `./do <service> stop` or `<C-c>` in the shell of a
+- To build the image and volume: `./do build <service>`
+- To create and start the container: `./do start <service>`
+- To stop container: `./do stop <service>` or `<C-c>` in the shell of a
   started container.
-- To remove container and volume: `./do <service> reset`
-- To remove container, volume and image: `./do <service> rm`
+- To remove container and volume: `./do reset <service>`
+- To remove container, volume and image: `./do rm <service>`
 - To use a different service version: `VERSION=3.10.24 ./do ...`
 - To force a different architecture: `ARCH=x86_64 ./do ...`
 - To use a different prefix for Docker artifacts: `PREFIX=myown ./do ...`
