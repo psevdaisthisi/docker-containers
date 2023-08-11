@@ -52,7 +52,7 @@ up at any time.
 ## PostgreSQL
 - Available at `./pgsql`.
 - Supports both arm64 and x86\_64 architectures.
-- Current version is `15.3-alpine3.18`.
+- Current version is `15.4-alpine3.18`.
 - Credentials: `postgres`, `pgsql!42`.
 
 ## RabbitMQ
