@@ -18,18 +18,18 @@ service="$2"
 
 if [[ ! "$service" =~ ^mongo$|^mssql$|^pgsql$|^rmq$ ]]; then
 	log_warning ">>> Unknown service: ${service}."
-	log_warning "$ ./do <action> mongo|mssql|pgsql|rmq"
+	log_warning "\$ ./do <action> mongo|mssql|pgsql|rmq"
 
 elif [[ ! "$action" =~ ^build$|^start$|^stop$|^reset$|^rm$ ]]; then
 	log_warning ">>> Unknown action: ${action}."
-	log_warning "$ ./do build|start|stop|reset|rm <service>"
+	log_warning "\$ ./do build|start|stop|reset|rm <service>"
 
 elif [ -x "${service}/do" ]; then
 	. "${service}/do" "$action"
 
 else
 	log_warning ">>> Unknown request: ${service}."
-	log_warning "$ ./do <action> <service>"
+	log_warning "\$ ./do <action> <service>"
 	log_warning "actions: build, start, stop, reset, rm"
 	log_warning "services: mongo, mssql, pgsql, rmq"
 fi
