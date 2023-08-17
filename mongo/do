@@ -12,15 +12,15 @@ trap trap_user_exit INT
 
 pushd "$script_absdir" >/dev/null
 
-# MongoDB releases are available at
-# https://www.mongodb.com/try/download/community
+# MongoDB releases are listed at
+# https://github.com/mongodb/mongo/tags
 action="$1"
 arch="${ARCH:-$(uname -m)}"
 container=""
 platform=""
 prefix="${PREFIX:-gh}"
 tag=""
-version="${VERSION:-4.4.23}"
+version="${VERSION:-4.4.24}"
 volume="${prefix}-mongo"
 arg_pkg="https://fastdl.mongodb.org/linux"
 env_port=27017
