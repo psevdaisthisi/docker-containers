@@ -24,17 +24,16 @@ env_port1=5672
 env_port2=15672
 
 # RMQ images can be found at https://hub.docker.com/_/rabbitmq
-# ATM there's no arm64/v8 version available for the alpine flavor.
 case "$arch" in
 arm64)
 	platform="linux/arm64/v8"
 	container="${prefix}-rmq-arm64-$version"
-	tag="rabbitmq:$version-management-alpine"
+	tag="rabbitmq:$version-management"
 	;;
 x86_64)
 	platform="linux/x86_64"
 	container="${prefix}-rmq-x86_64-$version"
-	tag="rabbitmq:$version-management-alpine"
+	tag="rabbitmq:$version-management"
 	;;
 *)
 	log_error ">>> Unsupported architecture: $arch."
