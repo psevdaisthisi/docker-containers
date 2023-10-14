@@ -35,7 +35,7 @@ arm64)
 	;;
 x86_64)
 	platform="linux/x86_64"
-	version="${VERSION:-2019-CU22-ubuntu-20.04}"
+	version="${VERSION:-2019-CU23-ubuntu-20.04}"
 	container="${prefix}-mssql-x86_64-$version"
 	tag="mcr.microsoft.com/mssql/server:$version"
 	;;
