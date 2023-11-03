@@ -1,16 +1,20 @@
-FROM debian:11.7-slim
+FROM debian:11.8-slim
 
-ARG PKG
+ARG PKG_MONGO
+ARG PKG_MONGOSH
 
 RUN apt-get -qq update \
 && apt-get -qqy install gettext-base libcurl4 wget \
-&& wget -q "$PKG" -O /tmp/mongodb.tgz \
+&& wget -q "$PKG_MONGO" -O /tmp/mongodb.tgz \
+&& wget -q "$PKG_MONGOSH" -O /tmp/mongosh.tgz \
 && mkdir -p /tmp/mongo \
 && tar xfv tmp/mongodb.tgz -C /tmp/mongo --strip=2 \
+&& tar xfv tmp/mongosh.tgz -C /tmp/mongo --strip=2 \
 && mv /tmp/mongo/mongod /usr/local/bin/ \
-&& mv /tmp/mongo/mongo /usr/local/bin/ \
-&& rm -rf /tmp/mongo \
-&& chown root:root /usr/local/bin/mongod /usr/local/bin/mongo \
+&& mv /tmp/mongo/mongosh /usr/local/bin/ \
+&& mv /tmp/mongo/mongosh_crypt_v1.so /usr/local/bin/ \
+&& rm -rf /tmp/mongo* \
+&& chown root:root /usr/local/bin/mongod \
 && apt-get -qqy remove wget \
 && apt-get -qqy autoremove \
 && mkdir -p /data/db \

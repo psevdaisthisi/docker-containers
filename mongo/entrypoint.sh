@@ -7,10 +7,13 @@
 	--networkMessageCompressors zstd \
 	--setParameter "transactionLifetimeLimitSeconds=13" &
 
-[ ! -f "/data/db/firstrun" ] && sleep 2 &&
-	/usr/local/bin/mongo admin \
-		--host localhost --port $port \
-		--eval "$(envsubst </data/db/config.js)" &&
+[ ! -f "/data/db/firstrun" ] && sleep 3 &&
+	/usr/local/bin/mongosh \
+		--norc --json=canonical \
+		--host localhost \
+		--port $port \
+		--eval "$(envsubst </data/db/config.js)" \
+		admin &&
 	touch "/data/db/firstrun"
 
 

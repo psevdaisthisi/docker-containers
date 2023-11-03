@@ -20,24 +20,28 @@ container=""
 platform=""
 prefix="${PREFIX:-gh}"
 tag=""
-version="${VERSION:-4.4.25}"
+version_mongo="${version_mongo:-7.0.3}"
+version_mongosh="${version_mongosh:-2.0.2}"
 volume="${prefix}-mongo"
-arg_pkg="https://fastdl.mongodb.org/linux"
+arg_pkg_mongo="https://fastdl.mongodb.org/linux"
+arg_pkg_mongosh="https://downloads.mongodb.com/compass"
 env_port=27017
 env_replSet="rs0"
 
 case "$arch" in
 arm64)
-	arg_pkg="${arg_pkg}/mongodb-linux-aarch64-ubuntu1804-${version}.tgz"
+	arg_pkg_mongo="${arg_pkg_mongo}/mongodb-linux-aarch64-ubuntu2204-${version_mongo}.tgz"
+	arg_pkg_mongosh="${arg_pkg_mongosh}/mongosh-${version_mongosh}-linux-arm64.tgz"
 	platform="linux/arm64/v8"
-	container="${prefix}-mongo-arm64-$version"
-	tag="$prefix-mongo-arm64:$version"
+	container="${prefix}-mongo-arm64-$version_mongo"
+	tag="$prefix-mongo-arm64:$version_mongo"
 	;;
 x86_64)
-	arg_pkg="${arg_pkg}/mongodb-linux-x86_64-debian10-${version}.tgz"
+	arg_pkg_mongo="${arg_pkg_mongo}/mongodb-linux-x86_64-debian11-${version_mongo}.tgz"
+	arg_pkg_mongosh="${arg_pkg_mongosh}/mongosh-${version_mongosh}-linux-x64.tgz"
 	platform="linux/x86_64"
-	container="${prefix}-mongo-x86_64-$version"
-	tag="${prefix}-mongo-x86_64:$version"
+	container="${prefix}-mongo-x86_64-$version_mongo"
+	tag="${prefix}-mongo-x86_64:$version_mongo"
 	;;
 *)
 	log_error ">>> Unsupported architecture: $arch."
@@ -57,7 +61,8 @@ stop)
 	;;
 build)
 	docker build \
-		--build-arg PKG="$arg_pkg" \
+		--build-arg PKG_MONGO="$arg_pkg_mongo" \
+		--build-arg PKG_MONGOSH="$arg_pkg_mongosh" \
 		--platform $platform \
 		--tag $tag .
 	docker volume create "$volume"
