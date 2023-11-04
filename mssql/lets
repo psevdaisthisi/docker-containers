@@ -10,30 +10,34 @@ trap trap_error ERR
 trap trap_exit EXIT
 trap trap_user_exit INT
 
+
 pushd "$script_absdir" >/dev/null
 
-# PostgreSQL images can be found at
-# https://hub.docker.com/_/postgres
+# SQL Server images can be found at
+# arm64:
+#	1. https://mcr.microsoft.com/v2/azure-sql-edge/tags/list
+#	2. https://learn.microsoft.com/en-us/azure/azure-sql-edge/release-notes
+# x86_64: https://hub.docker.com/_/microsoft-mssql-server
 action="$1"
 arch="${ARCH:-$(uname -m)}"
 container=""
 platform=""
 prefix="${PREFIX:-gh}"
 tag=""
-version="${VERSION:-15.4-alpine3.18}"
-volume="${prefix}-pgsql"
-env_port=5432
-
+volume="${prefix}-mssql"
+env_port=1433
 case "$arch" in
 arm64)
 	platform="linux/arm64/v8"
-	container="${prefix}-pgsql-arm64-$version"
-	tag="postgres:$version"
+	version="${VERSION:-1.0.7}"
+	container="${prefix}-mssql-arm64-$version"
+	tag="mcr.microsoft.com/azure-sql-edge:${version}"
 	;;
 x86_64)
 	platform="linux/x86_64"
-	container="${prefix}-pgsql-x86_64-$version"
-	tag="postgres:$version"
+	version="${VERSION:-2019-CU23-ubuntu-20.04}"
+	container="${prefix}-mssql-x86_64-$version"
+	tag="mcr.microsoft.com/mssql/server:$version"
 	;;
 *)
 	log_error ">>> Unsupported architecture: $arch."
@@ -53,9 +57,12 @@ start)
 
 	else docker run -d --init \
 		-p "$env_port:$env_port" \
-		-e POSTGRES_PASSWORD="pgsql!42" \
+		-e ACCEPT_EULA=Y \
+		-e MSSQL_PID=Developer \
+		-e MSSQL_SA_PASSWORD="mssql!42" \
+		-e MSSQL_TELEMETRY_ENABLED=FALSE \
 		--platform $platform \
-		--mount source="$volume",target=/var/lib/postgresql/data \
+		--mount source="$volume",target=/var/opt/mssql \
 		--name "$container" \
 		"$tag"
 	fi
@@ -65,6 +72,6 @@ start)
 	;;
 *)
 	log_warning ">>> Unknown or missing action."
-	log_warning "$ ./do build|start|stop|reset|rm"
+	log_warning "\$ ./lets build|start|stop|reset|rm"
 	;;
 esac
