@@ -1,7 +1,8 @@
 # Environment and Usage
-These containers and scripts were tested under macOS Ventura + Docker Desktop
-for both Apple Silicon and Intel architectures. There's a very good chance
-that they also run on Linux and Windows/WSL but I haven't tested those yet.
+These containers and scripts were tested under macOS Ventura and Sonoma +
+Docker Desktop for both Apple Silicon and Intel architectures. There's a
+very good chance that they also run on Linux and Windows/WSL but I haven't
+tested those yet.
 
 All containers are managed the same way, except where noticed otherwise:
 | Command | Result |
