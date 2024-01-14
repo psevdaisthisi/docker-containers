@@ -31,14 +31,14 @@ env_replSet="rs0"
 case "$arch" in
 arm64)
 	arg_pkg_mongo="${arg_pkg_mongo}/mongodb-linux-aarch64-ubuntu2204-${version_mongo}.tgz"
-	arg_pkg_mongosh="${arg_pkg_mongosh}/mongosh-${version_mongosh}-linux-arm64.tgz"
+	arg_pkg_mongosh="${arg_pkg_mongosh}/mongosh-${version_mongosh}-linux-arm64-openssl11.tgz"
 	platform="linux/arm64/v8"
 	container="${prefix}-mongo-arm64-$version_mongo"
 	tag="$prefix-mongo-arm64:$version_mongo"
 	;;
 x86_64)
 	arg_pkg_mongo="${arg_pkg_mongo}/mongodb-linux-x86_64-debian11-${version_mongo}.tgz"
-	arg_pkg_mongosh="${arg_pkg_mongosh}/mongosh-${version_mongosh}-linux-x64.tgz"
+	arg_pkg_mongosh="${arg_pkg_mongosh}/mongosh-${version_mongosh}-linux-x64-openssl11.tgz"
 	platform="linux/x86_64"
 	container="${prefix}-mongo-x86_64-$version_mongo"
 	tag="${prefix}-mongo-x86_64:$version_mongo"

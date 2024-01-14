@@ -1,4 +1,4 @@
-FROM debian:12.2-slim
+FROM debian:11.8-slim
 
 ARG PKG_MONGO
 ARG PKG_MONGOSH
