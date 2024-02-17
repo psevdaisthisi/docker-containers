@@ -20,7 +20,7 @@ container=""
 platform=""
 prefix="${PREFIX:-gh}"
 tag=""
-version="${VERSION:-15.5-alpine3.18}"
+version="${VERSION:-15.6-alpine3.18}"
 volume="${prefix}-pgsql"
 env_port=5432
 
