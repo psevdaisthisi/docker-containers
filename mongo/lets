@@ -31,7 +31,7 @@ env_replSet="rs0"
 case "$arch" in
 arm64)
 	arg_pkg_mongo="${arg_pkg_mongo}/mongodb-linux-aarch64-ubuntu2204-${version_mongo}.tgz"
-	arg_pkg_mongosh="${arg_pkg_mongosh}/mongosh-${version_mongosh}-linux-arm64-openssl11.tgz"
+	arg_pkg_mongosh="${arg_pkg_mongosh}/mongosh-${version_mongosh}-linux-arm64.tgz"
 	platform="linux/arm64/v8"
 	container="${prefix}-mongo-arm64-$version_mongo"
 	tag="$prefix-mongo-arm64:$version_mongo"
@@ -64,7 +64,8 @@ build)
 		--build-arg PKG_MONGO="$arg_pkg_mongo" \
 		--build-arg PKG_MONGOSH="$arg_pkg_mongosh" \
 		--platform $platform \
-		--tag $tag .
+		--tag $tag \
+		--file "./Dockerfile.${arch}" .
 	docker volume create "$volume"
 	;;
 start)
